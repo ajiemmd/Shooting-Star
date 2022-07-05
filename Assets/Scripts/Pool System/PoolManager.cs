@@ -6,6 +6,8 @@ public class PoolManager : MonoBehaviour
 {
     [SerializeField] Pool[] playerProjectilePools;
 
+    [SerializeField] Pool[] enemyProjectilePools;
+
     static Dictionary<GameObject, Pool> dictionary;
 
     private void Start()
@@ -13,6 +15,7 @@ public class PoolManager : MonoBehaviour
         dictionary = new Dictionary<GameObject, Pool>();
 
         Initialize(playerProjectilePools);
+        Initialize(enemyProjectilePools);
     }
 
 #if UNITY_EDITOR
@@ -20,6 +23,8 @@ public class PoolManager : MonoBehaviour
     private void OnDestroy()//在编辑器停止运行时会自动调用
     {
         CheckPoolSize(playerProjectilePools);
+        CheckPoolSize(enemyProjectilePools);
+
     }
 #endif
 
