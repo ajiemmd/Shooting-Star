@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 578449712315536098}
   - component: {fileID: 543986162}
+  - component: {fileID: 7927032544878919101}
   m_Layer: 7
   m_Name: Enemy03
   m_TagString: Player
@@ -81,10 +82,26 @@ MonoBehaviour:
   moveSpeed: 1
   moveRotationAngle: 35
   projectiles:
-  - {fileID: 8922262716547355608, guid: 32b758f3d2d6ce84cbbbd8bd1b21e22e, type: 3}
+  - {fileID: 8922262716547355608, guid: 57af2a8d29dbef94fa898a650a706e77, type: 3}
+  - {fileID: 8922262716547355608, guid: b32be24fe238b7d428fb5f3a95be4a8c, type: 3}
+  - {fileID: 8922262716547355608, guid: 87524b5f41ba24d49a38578c7b96b5dc, type: 3}
   muzzle: {fileID: 260054905}
   minFireInterval: 2
   maxFireInterval: 4
+--- !u!114 &7927032544878919101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578449712315536124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b258d87b66024a4daa1b0a39196246e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathVFX: {fileID: 0}
+  maxHealth: 7
 --- !u!1 &6141127440874144652
 GameObject:
   m_ObjectHideFlags: 0

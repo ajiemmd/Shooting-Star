@@ -29122,7 +29122,7 @@ GameObject:
   - component: {fileID: 1540419934}
   - component: {fileID: 1540419933}
   m_Layer: 6
-  m_Name: Star Sparrow 01
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29180,16 +29180,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b805a357acd3304880107f1202da31b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathVFX: {fileID: 0}
+  maxHealth: 100
+  regenerateHealth: 1
+  healthRegenerateTime: 12
+  healthRegeneratePercent: 0.02
   input: {fileID: 11400000, guid: da3e5975cc31aa24e8efe536822f739e, type: 2}
-  moveSpeed: 6
-  accelerationTime: 3
-  decelerationTime: 3
+  moveSpeed: 10
+  accelerationTime: 2
+  decelerationTime: 2
   moveRotationAngle: 30
   paddingX: 1
   paddingY: 0.35
   projectile1: {fileID: 3001503981540831161, guid: 03eadb105b908a54e952e15c31d8eb06, type: 3}
-  projectile2: {fileID: 3001503981540831161, guid: 47f780aa9bff08f469ad1e7236996bdc, type: 3}
-  projectile3: {fileID: 3001503981540831161, guid: 8dcf70fedf6956d4f9e658275ad89ceb, type: 3}
+  projectile2: {fileID: 3001503981540831161, guid: 0e131d8a9be514c48906038ca23fb6f7, type: 3}
+  projectile3: {fileID: 3001503981540831161, guid: 6828749cc1c03904ea8a1d80fb00fd26, type: 3}
   muzzleMiddle: {fileID: 1148571429}
   muzzleTop: {fileID: 383026517}
   muzzleBottom: {fileID: 212853608}

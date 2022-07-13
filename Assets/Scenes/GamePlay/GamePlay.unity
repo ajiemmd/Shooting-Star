@@ -180,7 +180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8921546478736950322, guid: 2ab3ff156c8f1c149a4d4fe513936685, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ab3ff156c8f1c149a4d4fe513936685, type: 3}
@@ -491,8 +491,8 @@ PrefabInstance:
       value: Enemy03
       objectReference: {fileID: 0}
     - target: {fileID: 578449712315536124, guid: c09767a80c39dca498c95b2e5be1afd8, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c09767a80c39dca498c95b2e5be1afd8, type: 3}
@@ -628,6 +628,14 @@ MonoBehaviour:
   enemyProjectilePools:
   - prefab: {fileID: 8922262716547355608, guid: 32b758f3d2d6ce84cbbbd8bd1b21e22e, type: 3}
     size: 10
+  - prefab: {fileID: 8922262716547355608, guid: 57af2a8d29dbef94fa898a650a706e77, type: 3}
+    size: 10
+  - prefab: {fileID: 8922262716547355608, guid: b32be24fe238b7d428fb5f3a95be4a8c, type: 3}
+    size: 10
+  - prefab: {fileID: 8922262716547355608, guid: 87524b5f41ba24d49a38578c7b96b5dc, type: 3}
+    size: 10
+  - prefab: {fileID: 8922262716547355608, guid: ccaaa19a305f4eb40a19310849798c8f, type: 3}
+    size: 10
 --- !u!4 &788787262
 Transform:
   m_ObjectHideFlags: 0
@@ -695,27 +703,7 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1540419933, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
-      propertyPath: moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1540419933, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
-      propertyPath: projectile2
-      value: 
-      objectReference: {fileID: 3001503981540831161, guid: 0e131d8a9be514c48906038ca23fb6f7, type: 3}
-    - target: {fileID: 1540419933, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
-      propertyPath: projectile3
-      value: 
-      objectReference: {fileID: 3001503981540831161, guid: 6828749cc1c03904ea8a1d80fb00fd26, type: 3}
-    - target: {fileID: 1540419933, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: weaponPower
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1540419933, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
-      propertyPath: accelerationTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1540419933, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
-      propertyPath: decelerationTime
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
@@ -974,7 +962,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 214778051926960383, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}

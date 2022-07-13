@@ -8,8 +8,9 @@ public class Projectile : MonoBehaviour
 
     [SerializeField] protected Vector2 moveDirection;
 
+    protected GameObject target;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         StartCoroutine(MoveDirectly());
     }
