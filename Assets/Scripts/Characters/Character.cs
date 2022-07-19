@@ -46,7 +46,7 @@ public class Character : MonoBehaviour
 
     protected IEnumerator HealthRegenerateCoroutine(WaitForSeconds waitTime, float percent)
     {
-        Debug.Log("回复携程");
+        //Debug.Log("回复携程");
         while(health < maxHealth)
         {
             yield return waitTime;

@@ -1,11 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoDeactivate : MonoBehaviour
 {
     [SerializeField] bool destroyGameObject;
-
     [SerializeField] float lifetime = 3f;
 
     WaitForSeconds waitLifetime;
@@ -17,10 +15,10 @@ public class AutoDeactivate : MonoBehaviour
 
     void OnEnable()
     {
-        StartCoroutine(Deactivate());    
+        StartCoroutine(DeactivateCoroutine());
     }
 
-    IEnumerator Deactivate()
+    IEnumerator DeactivateCoroutine()
     {
         yield return waitLifetime;
 
@@ -28,10 +26,9 @@ public class AutoDeactivate : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        else
+        else 
         {
             gameObject.SetActive(false);
         }
-
     }
 }

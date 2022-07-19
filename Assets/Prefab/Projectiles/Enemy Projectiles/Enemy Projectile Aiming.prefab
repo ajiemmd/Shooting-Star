@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7922808020311340133}
   - component: {fileID: 7689380488749826246}
   - component: {fileID: 610981926904893285}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,9 +90,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8922262716547355609}
-  - component: {fileID: 8922262716547355607}
+  - component: {fileID: -2934045341657175815}
   - component: {fileID: 5802319056069276221}
-  m_Layer: 0
+  - component: {fileID: 8922262716547355607}
+  m_Layer: 6
   m_Name: Enemy Projectile Aiming
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,20 +115,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8922262716547355607
-MonoBehaviour:
+--- !u!58 &-2934045341657175815
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8922262716547355608}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e89c8ff993c389647ab119e6ad9fa426, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyGameObject: 0
-  lifetime: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
 --- !u!114 &5802319056069276221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,5 +143,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576feae3337d766448143b1d5faf3a60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitVFX: {fileID: 4801493125213720806, guid: 94d3dff6247d98e4cb4d8d6f0be5e291, type: 3}
+  damage: 1
   moveSpeed: 5
   moveDirection: {x: -1, y: 0}
+--- !u!114 &8922262716547355607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922262716547355608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b5f7379fc3e59144bf1f0f30d8a22ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyGameObject: 0
+  lifetime: 3

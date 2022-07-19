@@ -178,10 +178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy02
       objectReference: {fileID: 0}
-    - target: {fileID: 8921546478736950322, guid: 2ab3ff156c8f1c149a4d4fe513936685, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ab3ff156c8f1c149a4d4fe513936685, type: 3}
 --- !u!1 &396032387
@@ -490,10 +486,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy03
       objectReference: {fileID: 0}
-    - target: {fileID: 578449712315536124, guid: c09767a80c39dca498c95b2e5be1afd8, type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c09767a80c39dca498c95b2e5be1afd8, type: 3}
 --- !u!1 &657731308
@@ -636,6 +628,15 @@ MonoBehaviour:
     size: 10
   - prefab: {fileID: 8922262716547355608, guid: ccaaa19a305f4eb40a19310849798c8f, type: 3}
     size: 10
+  vFXPools:
+  - prefab: {fileID: 1587261729604890, guid: 600ec83cba1cec448bf41a6607229741, type: 3}
+    size: 1
+  - prefab: {fileID: 2342042931496088306, guid: 97b415311529fa145aacd3eedaac728e, type: 3}
+    size: 3
+  - prefab: {fileID: 5060298685065931927, guid: 6775c68a79b34db4fa2fd4db2a4cdf74, type: 3}
+    size: 15
+  - prefab: {fileID: 4801493125213720806, guid: 94d3dff6247d98e4cb4d8d6f0be5e291, type: 3}
+    size: 2
 --- !u!4 &788787262
 Transform:
   m_ObjectHideFlags: 0
@@ -703,8 +704,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1540419933, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
-      propertyPath: weaponPower
-      value: 2
+      propertyPath: maxHealth
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6435389010079767248, guid: 69bf9c8dfe6a9e5479d5093236b17108, type: 3}
       propertyPath: m_RootOrder
@@ -959,10 +960,6 @@ PrefabInstance:
     - target: {fileID: 214778051926960383, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}
       propertyPath: m_Name
       value: Enemy01
-      objectReference: {fileID: 0}
-    - target: {fileID: 214778051926960383, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a624a0e3000461e4286965f8a65aedb6, type: 3}

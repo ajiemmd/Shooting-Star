@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3001503981168392967}
   - component: {fileID: 3001503981168392964}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,9 +147,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3001503981540831166}
+  - component: {fileID: 9162715706124837688}
   - component: {fileID: 3001503981540831167}
   - component: {fileID: 81187677372188930}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player Projecttile 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,6 +172,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &9162715706124837688
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3001503981540831161}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.28, y: 0}
+  m_Size: {x: 0.25, y: 0.1}
+  m_Direction: 1
 --- !u!114 &3001503981540831167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a70f5332df90c364dbd182366975c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitVFX: {fileID: 5060298685065931927, guid: 6775c68a79b34db4fa2fd4db2a4cdf74, type: 3}
+  damage: 1
   moveSpeed: 15
   moveDirection: {x: 1, y: 0}
 --- !u!114 &81187677372188930
@@ -194,7 +213,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3001503981540831161}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e89c8ff993c389647ab119e6ad9fa426, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b5f7379fc3e59144bf1f0f30d8a22ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   destroyGameObject: 0
@@ -210,7 +229,7 @@ GameObject:
   - component: {fileID: 3001503981738077019}
   - component: {fileID: 3001503981738077017}
   - component: {fileID: 3001503981738077016}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Particle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,6 +8,8 @@ public class PoolManager : MonoBehaviour
 
     [SerializeField] Pool[] enemyProjectilePools;
 
+    [SerializeField] Pool[] vFXPools;
+
     static Dictionary<GameObject, Pool> dictionary;
 
     private void Start()
@@ -16,6 +18,7 @@ public class PoolManager : MonoBehaviour
 
         Initialize(playerProjectilePools);
         Initialize(enemyProjectilePools);
+        Initialize(vFXPools);
     }
 
 #if UNITY_EDITOR
@@ -24,6 +27,7 @@ public class PoolManager : MonoBehaviour
     {
         CheckPoolSize(playerProjectilePools);
         CheckPoolSize(enemyProjectilePools);
+        CheckPoolSize(vFXPools);
 
     }
 #endif
@@ -68,7 +72,7 @@ public class PoolManager : MonoBehaviour
     public static GameObject Release(GameObject prefab)
     {
 #if UNITY_EDITOR
-        if (dictionary.ContainsKey(prefab))
+        if (!dictionary.ContainsKey(prefab))
         {
             Debug.LogError("Pool Manager could NOT find prefab:" + prefab.name);
             return null;
@@ -107,7 +111,7 @@ public class PoolManager : MonoBehaviour
     public static GameObject Release(GameObject prefab, Vector3 postion, Quaternion rotation)
     {
 #if UNITY_EDITOR
-        if (dictionary.ContainsKey(prefab))
+        if (!dictionary.ContainsKey(prefab))
         {
             Debug.LogError("Pool Manager could NOT find prefab:" + prefab.name);
             return null;
@@ -128,7 +132,7 @@ public class PoolManager : MonoBehaviour
     public static GameObject Release(GameObject prefab, Vector3 postion, Quaternion rotation, Vector3 localScale)
     {
 #if UNITY_EDITOR
-        if (dictionary.ContainsKey(prefab))
+        if (!dictionary.ContainsKey(prefab))
         {
             Debug.LogError("Pool Manager could NOT find prefab:" + prefab.name);
             return null;
