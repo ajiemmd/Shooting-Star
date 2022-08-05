@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Character
 {
+    [SerializeField]StatsBar_HUD statsBar_HUD;
+
     [SerializeField] bool regenerateHealth = true;
 
     [SerializeField] float healthRegenerateTime;
@@ -78,21 +80,16 @@ public class Player : Character
         waitForFireInterval = new WaitForSeconds(fireInterval);
         waitHealthRegenerateTime = new WaitForSeconds(healthRegenerateTime);
 
+        statsBar_HUD.Initialize(health, maxHealth);
+
         input.EnableGamePlayInput();
 
     }
 
-    public override void RestoreHealth(float value)
-    {
-        base.RestoreHealth(value);
-
-        Debug.Log("Rehemerate health! Current Health:" + health + "\nTime: " + Time.time);
-    }
-
-
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        statsBar_HUD.UpdateStats(health, maxHealth);
 
         if (gameObject.activeSelf)
         {
@@ -108,6 +105,17 @@ public class Player : Character
     }
 
 
+    public override void RestoreHealth(float value)
+    {
+        base.RestoreHealth(value);
+        statsBar_HUD.UpdateStats(health, maxHealth);
+    }
+
+    public override void Die()
+    {
+        statsBar_HUD.UpdateStats(0f, maxHealth);
+        base.Die();
+    }
 
     #region MOVE
     void Move(Vector2 moveInput)
