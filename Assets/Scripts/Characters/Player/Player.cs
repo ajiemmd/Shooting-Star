@@ -4,25 +4,19 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Character
 {
-    [SerializeField]StatsBar_HUD statsBar_HUD;
-
+    [SerializeField] StatsBar_HUD statsBar_HUD;
     [SerializeField] bool regenerateHealth = true;
-
     [SerializeField] float healthRegenerateTime;
-
-    [SerializeField, Range(0f,1f)] float healthRegeneratePercent;
+    [SerializeField, Range(0f, 1f)] float healthRegeneratePercent;
 
     [Header("----INPUT----")]
     [SerializeField] PlayerInput input;
 
     [Header("----MOVE----")]
     [SerializeField] float moveSpeed = 10f;
-
     [SerializeField] float accelerationTime = 3f;
     [SerializeField] float decelerationTime = 3f;
-
     [SerializeField] float moveRotationAngle = 50f;
-
     [SerializeField] float paddingX = 0.2f;
     [SerializeField] float paddingY = 0.2f;
 
@@ -36,23 +30,42 @@ public class Player : Character
     [SerializeField] Transform muzzleTop;
     [SerializeField] Transform muzzleBottom;
 
-    [SerializeField,Range(0,2)] int weaponPower = 0;
+    [SerializeField, Range(0, 2)] int weaponPower = 0;
 
     [SerializeField] float fireInterval = 0.2f;
+
+    [Header("----Dodge----")]
+    [SerializeField] int dodgeEnergyCost = 25;
+    [SerializeField] float maxRoll = 720f;
+    [SerializeField] float rollSpeed = 360f;
+    [SerializeField] Vector3 dodgeScale = new Vector3(0.5f, 0.5f, 0.5f);
+
+
+    bool isDodging = false;
+
+    float currentRoll;
+
+    float dodgeDuration;
 
     WaitForSeconds waitForFireInterval;
 
     WaitForSeconds waitHealthRegenerateTime;
 
-    new Rigidbody2D rigidbody;
-
     Coroutine moveCoroutine;
 
     Coroutine healthRegenerateCoroutine;
 
+    new Rigidbody2D rigidbody;
+
+    new Collider2D collider;
+
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
+
+        dodgeDuration = maxRoll / rollSpeed;
     }
     protected override void OnEnable()
     {
@@ -62,6 +75,7 @@ public class Player : Character
         input.onStopMove += StopMove;
         input.onFire += Fire;
         input.onStopFire += StopFire;
+        input.onDodge += Dodge;
     }
 
     private void OnDisable()
@@ -70,6 +84,7 @@ public class Player : Character
         input.onStopMove -= StopMove;
         input.onFire -= Fire;
         input.onStopFire -= StopFire;
+        input.onDodge -= Dodge;
     }
 
 
@@ -99,7 +114,7 @@ public class Player : Character
                 {
                     StopCoroutine(healthRegenerateCoroutine);
                 }
-               healthRegenerateCoroutine =  StartCoroutine(HealthRegenerateCoroutine(waitHealthRegenerateTime,healthRegeneratePercent));
+                healthRegenerateCoroutine = StartCoroutine(HealthRegenerateCoroutine(waitHealthRegenerateTime, healthRegeneratePercent));
             }
         }
     }
@@ -202,4 +217,99 @@ public class Player : Character
     }
 
     #endregion
+
+    #region DODGE
+    void Dodge()
+    {
+        if (isDodging || !PlayerEnergy.Instance.IsEnough(dodgeEnergyCost)) return;
+
+        StartCoroutine(nameof(DodgeCoroutine));
+
+        //Change player's scale 改变玩家的缩放值
+    }
+
+
+    IEnumerator DodgeCoroutine()
+    {
+        isDodging = true;
+
+        //Cost energy 消耗能量
+        PlayerEnergy.Instance.Use(dodgeEnergyCost);
+
+        //Make player invincible 让玩家无敌
+        collider.isTrigger = true;
+        //Make player rotate alone X axis 让玩家沿着X轴旋转
+        currentRoll = 0;
+
+
+        #region 方法一
+        //var scale = transform.localScale;
+        //while(currentRoll < maxRoll)
+        //{
+        //    currentRoll += rollSpeed * Time.deltaTime;
+        //    transform.rotation = Quaternion.AngleAxis(currentRoll, Vector3.right);
+
+        //    if (currentRoll < maxRoll / 2f)
+        //    {
+        //        scale.x = Mathf.Clamp(scale.x - Time.deltaTime / dodgeDuration, dodgeScale.x, 1f);
+        //        scale.y = Mathf.Clamp(scale.y - Time.deltaTime / dodgeDuration, dodgeScale.y, 1f);
+        //        scale.z = Mathf.Clamp(scale.z - Time.deltaTime / dodgeDuration, dodgeScale.z, 1f);
+
+        //    }
+        //    else
+        //    {
+        //        scale.x = Mathf.Clamp(scale.x + Time.deltaTime / dodgeDuration, dodgeScale.x, 1f);
+        //        scale.y = Mathf.Clamp(scale.y + Time.deltaTime / dodgeDuration, dodgeScale.y, 1f);
+        //        scale.z = Mathf.Clamp(scale.z + Time.deltaTime / dodgeDuration, dodgeScale.z, 1f);
+        //    }
+        //    transform.localScale = scale;
+
+        //    yield return null;
+        //}
+        #endregion
+
+        #region 线性插值
+
+        //    var t1 = 0f;
+        //    var t2 = 0f;
+
+        //    while (currentRoll < maxRoll)
+        //    {
+        //        currentRoll += rollSpeed * Time.deltaTime;
+        //        transform.rotation = Quaternion.AngleAxis(currentRoll, Vector3.right);
+
+        //        if (currentRoll < maxRoll / 2f)
+        //        {
+        //            t1 += Time.deltaTime / dodgeDuration;
+        //            transform.localScale = Vector3.Lerp(transform.localScale, dodgeScale, t1);
+        //        }
+        //        else
+        //        {
+        //            t2 += Time.deltaTime / dodgeDuration;
+        //            transform.localScale = Vector3.Lerp(transform.localScale, Vector3.one, t2);
+        //        }
+
+        //        yield return null;
+        //    }
+        #endregion
+
+        //方法三：二次  贝塞尔曲线
+        while (currentRoll < maxRoll)
+        {
+            currentRoll += rollSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.AngleAxis(currentRoll, Vector3.right);
+            transform.localScale = BezierCurve.QuadraticPoint(Vector3.one, Vector3.one, dodgeScale, currentRoll / maxRoll);
+
+            yield return null;
+        }
+
+        collider.isTrigger = false;
+        isDodging = false;
+
+    }
+
+
+
+    #endregion
+
 }
