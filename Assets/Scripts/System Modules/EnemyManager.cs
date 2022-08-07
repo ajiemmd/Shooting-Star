@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
+
+    public int WaveNumber => waveNumber;
+    public float TimeBetweenWaves => timeBetweenWaves;
+
     [SerializeField] bool spawnEnemy = true;
+    [SerializeField] GameObject waveUI;
     [SerializeField] GameObject[] enemyPrefabs;
     [SerializeField] float timeBetweenSpawns = 1f;
     [SerializeField] float timeBetweenWaves = 1;
@@ -36,7 +41,9 @@ public class EnemyManager : Singleton<EnemyManager>
 
             yield return waitUntilNoEnemy;
 
+            waveUI.SetActive(true);
             yield return waitTimeBetweenWaves;
+            waveUI.SetActive(false);
 
             yield return StartCoroutine(nameof(RandomlySpawnCoroutine));
         }

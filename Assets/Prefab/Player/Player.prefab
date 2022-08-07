@@ -29220,7 +29220,7 @@ MonoBehaviour:
   muzzleMiddle: {fileID: 1148571429}
   muzzleTop: {fileID: 383026517}
   muzzleBottom: {fileID: 212853608}
-  weaponPower: 0
+  weaponPower: 2
   fireInterval: 0.12
   dodgeEnergyCost: 25
   maxRoll: 360
