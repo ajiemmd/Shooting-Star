@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
+    [SerializeField] Pool[] enemyPools;
+
     [SerializeField] Pool[] playerProjectilePools;
 
     [SerializeField] Pool[] enemyProjectilePools;
@@ -12,10 +14,11 @@ public class PoolManager : MonoBehaviour
 
     static Dictionary<GameObject, Pool> dictionary;
 
-    private void Start()
+    private void Awake()
     {
         dictionary = new Dictionary<GameObject, Pool>();
 
+        Initialize(enemyPools);
         Initialize(playerProjectilePools);
         Initialize(enemyProjectilePools);
         Initialize(vFXPools);
@@ -25,6 +28,7 @@ public class PoolManager : MonoBehaviour
 
     private void OnDestroy()//在编辑器停止运行时会自动调用
     {
+        CheckPoolSize(enemyPools);
         CheckPoolSize(playerProjectilePools);
         CheckPoolSize(enemyProjectilePools);
         CheckPoolSize(vFXPools);
