@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField]GameObject deathVFX;
+    [Header("----DEATH----")]
+    [SerializeField] GameObject deathVFX;
+    [SerializeField] AudioData[] deathSFX;
 
     [Header("----HEALTH----")]
     [SerializeField] protected float maxHealth;
@@ -60,6 +62,7 @@ public class Character : MonoBehaviour
     public virtual void Die()
     {
         health = 0;
+        AudioManager.Instance.PlayRandomSFX(deathSFX);
         PoolManager.Release(deathVFX, transform.position);
         gameObject.SetActive(false);
     }
@@ -90,7 +93,7 @@ public class Character : MonoBehaviour
     protected IEnumerator HealthRegenerateCoroutine(WaitForSeconds waitTime, float percent)
     {
         //Debug.Log("»Ø¸´Ð¯³Ì");
-        while(health < maxHealth)
+        while (health < maxHealth)
         {
             yield return waitTime;
             RestoreHealth(maxHealth * percent);
