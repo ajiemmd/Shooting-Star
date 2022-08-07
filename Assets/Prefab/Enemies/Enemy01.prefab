@@ -14784,6 +14784,10 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7242208378213335933, guid: bfb69164e0c52ee409ba0bd64f1d5cf2, type: 3}
+      propertyPath: fillspeed
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7242208378213335934, guid: bfb69164e0c52ee409ba0bd64f1d5cf2, type: 3}
       propertyPath: m_Name
       value: UI Health Bar On Head Enemy

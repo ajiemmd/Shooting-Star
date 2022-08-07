@@ -29212,8 +29212,8 @@ MonoBehaviour:
   healthRegeneratePercent: 0.02
   input: {fileID: 11400000, guid: da3e5975cc31aa24e8efe536822f739e, type: 2}
   moveSpeed: 10
-  accelerationTime: 2
-  decelerationTime: 2
+  accelerationTime: 0.35
+  decelerationTime: 0.75
   moveRotationAngle: 30
   paddingX: 1
   paddingY: 0.35
@@ -43791,6 +43791,10 @@ PrefabInstance:
     - target: {fileID: 7242208378213335922, guid: eac290d400ec9ae45971c2b897959548, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7242208378213335933, guid: eac290d400ec9ae45971c2b897959548, type: 3}
+      propertyPath: fillspeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7242208378213335934, guid: eac290d400ec9ae45971c2b897959548, type: 3}
       propertyPath: m_Name

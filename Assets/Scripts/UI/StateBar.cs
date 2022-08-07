@@ -11,11 +11,12 @@ public class StateBar : MonoBehaviour
     [SerializeField] bool delayFill = true;
     [SerializeField] float fillDelay = 0.5f;
 
-    [SerializeField] float fillspeed = 0.1f;//血槽变化速度(变化到终点的时长)
+    [SerializeField] float fillspeed = 5f;//血槽变化速度
 
     float currentFillAmount;
     protected float targetFillAmount;
 
+    float previousFillAmount;
     float t;//协程中的计时器
 
     WaitForSeconds waitForDelayFill;
@@ -81,12 +82,13 @@ public class StateBar : MonoBehaviour
             yield return waitForDelayFill;
         }
 
-
+        previousFillAmount = currentFillAmount;
         t = 0;
+
         while (t < 1f)
         {
             t += Time.deltaTime * fillspeed;
-            currentFillAmount = Mathf.Lerp(currentFillAmount, targetFillAmount,t);
+            currentFillAmount = Mathf.Lerp(previousFillAmount, targetFillAmount,t);
             image.fillAmount = currentFillAmount;
 
             yield return null;

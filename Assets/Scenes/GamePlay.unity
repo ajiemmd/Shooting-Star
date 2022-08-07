@@ -285,7 +285,7 @@ MonoBehaviour:
   fillImageFront: {fileID: 272451852}
   delayFill: 1
   fillDelay: 0.5
-  fillspeed: 0.1
+  fillspeed: 5
   percentText: {fileID: 254021546}
 --- !u!114 &244075127
 MonoBehaviour:
@@ -2699,7 +2699,7 @@ MonoBehaviour:
   fillImageFront: {fileID: 491270376}
   delayFill: 0
   fillDelay: 0.5
-  fillspeed: 0.1
+  fillspeed: 2
   percentText: {fileID: 552705069}
 --- !u!114 &1822713227
 MonoBehaviour:
