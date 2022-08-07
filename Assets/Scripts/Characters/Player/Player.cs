@@ -36,7 +36,7 @@ public class Player : Character
 
     [SerializeField] float fireInterval = 0.2f;
 
-    [Header("----Dodge----")]
+    [Header("----DODGE----")]
     [SerializeField] AudioData dodgeSFX;
     [SerializeField] int dodgeEnergyCost = 25;
     [SerializeField] float maxRoll = 720f;
@@ -44,7 +44,16 @@ public class Player : Character
     [SerializeField] Vector3 dodgeScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 
+    [Header("----OVERDRIVE----")]
+    [SerializeField] int overdriveDodgeFactor = 2;
+    [SerializeField] float overdriveSpeedFactor = 1.2f;
+    [SerializeField] float overdriveFireFactor = 1.2f;
+
+
+
     bool isDodging = false;
+
+    bool isOverdriving = false;
 
     float currentRoll;
 
@@ -55,6 +64,8 @@ public class Player : Character
     Quaternion previousRotation;
 
     WaitForSeconds waitForFireInterval;
+
+    WaitForSeconds waitForOverdriveFireInterval;//等待能量爆发时的开火间隔
 
     WaitForSeconds waitHealthRegenerateTime;
 
@@ -67,12 +78,18 @@ public class Player : Character
     new Collider2D collider;
 
 
+    #region UNITY EVENT FUNTIONS
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
 
         dodgeDuration = maxRoll / rollSpeed;
+        rigidbody.gravityScale = 0f;
+
+        waitForFireInterval = new WaitForSeconds(fireInterval);
+        waitForOverdriveFireInterval = new WaitForSeconds(fireInterval /= overdriveFireFactor);//开火间隔缩短
+        waitHealthRegenerateTime = new WaitForSeconds(healthRegenerateTime);
     }
     protected override void OnEnable()
     {
@@ -83,6 +100,10 @@ public class Player : Character
         input.onFire += Fire;
         input.onStopFire += StopFire;
         input.onDodge += Dodge;
+        input.onOverdrive += Overdrive;
+
+        PlayerOverdrive.on += OverdriveOn;
+        PlayerOverdrive.off += OverdriveOff;
     }
 
     private void OnDisable()
@@ -92,22 +113,22 @@ public class Player : Character
         input.onFire -= Fire;
         input.onStopFire -= StopFire;
         input.onDodge -= Dodge;
+        input.onOverdrive -= Overdrive;
+
+        PlayerOverdrive.on -= OverdriveOn;
+        PlayerOverdrive.off -= OverdriveOff;
     }
 
 
     void Start()
     {
-        rigidbody.gravityScale = 0f;
-
-        waitForFireInterval = new WaitForSeconds(fireInterval);
-        waitHealthRegenerateTime = new WaitForSeconds(healthRegenerateTime);
-
         statsBar_HUD.Initialize(health, maxHealth);
 
         input.EnableGamePlayInput();
-
     }
+    #endregion
 
+    #region HEALTH
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
@@ -126,7 +147,6 @@ public class Player : Character
         }
     }
 
-
     public override void RestoreHealth(float value)
     {
         base.RestoreHealth(value);
@@ -138,6 +158,7 @@ public class Player : Character
         statsBar_HUD.UpdateStats(0f, maxHealth);
         base.Die();
     }
+    #endregion
 
     #region MOVE
     void Move(Vector2 moveInput)
@@ -163,7 +184,7 @@ public class Player : Character
 
     IEnumerator MoveCoroutine(float time, Vector2 moveVelocity, Quaternion moveRotation)
     {
-         t = 0f;
+        t = 0f;
         previousVelocity = rigidbody.velocity;
         previousRotation = transform.rotation;
 
@@ -222,7 +243,17 @@ public class Player : Character
             }
 
             AudioManager.Instance.PlayRandomSFX(projectileLaunchSFX);
-            yield return waitForFireInterval;
+
+            yield return isOverdriving ? waitForOverdriveFireInterval : waitForFireInterval;
+            //if (isOverdriving)
+            //{
+            //    yield return waitForOverdriveFireInterval;
+            //}
+            //else
+            //{
+            //    yield return waitForFireInterval;
+            //}
+
         }
     }
 
@@ -323,4 +354,28 @@ public class Player : Character
 
     #endregion
 
+    #region OVERDRIVE
+    void Overdrive()
+    {
+        if (!PlayerEnergy.Instance.IsEnough(PlayerEnergy.MAX)) return;
+
+        PlayerOverdrive.on.Invoke();
+
+    }
+
+    void OverdriveOn()
+    {
+        isOverdriving = true;
+        dodgeEnergyCost *= overdriveDodgeFactor;
+        moveSpeed *= overdriveSpeedFactor;
+    }
+
+    void OverdriveOff()
+    {
+        isOverdriving = false;
+        dodgeEnergyCost /= overdriveDodgeFactor;
+        moveSpeed /= overdriveSpeedFactor;
+    }
+
+    #endregion
 }
