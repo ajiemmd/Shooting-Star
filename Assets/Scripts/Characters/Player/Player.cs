@@ -25,6 +25,7 @@ public class Player : Character
     [SerializeField] GameObject projectile1;
     [SerializeField] GameObject projectile2;
     [SerializeField] GameObject projectile3;
+    [SerializeField] GameObject projectileOverdrive;
 
     [SerializeField] Transform muzzleMiddle;
     [SerializeField] Transform muzzleTop;
@@ -128,6 +129,11 @@ public class Player : Character
     }
     #endregion
 
+    private void Update()
+    {
+        transform.position = Viewport.Instance.PlayerMoveablePostion(transform.position, paddingX, paddingY);//限制玩家移动范围
+    }
+
     #region HEALTH
     public override void TakeDamage(float damage)
     {
@@ -169,7 +175,6 @@ public class Player : Character
         }
 
         moveCoroutine = StartCoroutine(MoveCoroutine(accelerationTime, moveInput.normalized * moveSpeed, Quaternion.AngleAxis(moveRotationAngle * moveInput.y, Vector3.right)));
-        StartCoroutine(nameof(MovePositionLimitCoroutine));
     }
 
     void StopMove()
@@ -179,7 +184,6 @@ public class Player : Character
             StopCoroutine(moveCoroutine);
         }
         moveCoroutine = StartCoroutine(MoveCoroutine(decelerationTime, Vector2.zero, Quaternion.identity));
-        StopCoroutine(nameof(MovePositionLimitCoroutine));
     }
 
     IEnumerator MoveCoroutine(float time, Vector2 moveVelocity, Quaternion moveRotation)
@@ -195,14 +199,6 @@ public class Player : Character
             transform.rotation = Quaternion.Lerp(previousRotation, moveRotation, t);
 
             yield return new WaitForFixedUpdate();
-        }
-    }
-    IEnumerator MovePositionLimitCoroutine()
-    {
-        while (true)
-        {
-            transform.position = Viewport.Instance.PlayerMoveablePostion(transform.position, paddingX, paddingY);
-            yield return null;
         }
     }
     #endregion
@@ -226,17 +222,17 @@ public class Player : Character
             switch (weaponPower)
             {
                 case 0:
-                    PoolManager.Release(projectile1, muzzleMiddle.position);
+                    PoolManager.Release(isOverdriving ? projectileOverdrive : projectile1, muzzleMiddle.position);
                     break;
                 case 1:
-                    PoolManager.Release(projectile1, muzzleTop.position);
-                    PoolManager.Release(projectile1, muzzleBottom.position);
+                    PoolManager.Release(isOverdriving ? projectileOverdrive : projectile1, muzzleTop.position);
+                    PoolManager.Release(isOverdriving ? projectileOverdrive : projectile1, muzzleBottom.position);
 
                     break;
                 case 2:
-                    PoolManager.Release(projectile1, muzzleMiddle.position);
-                    PoolManager.Release(projectile2, muzzleTop.position);
-                    PoolManager.Release(projectile3, muzzleBottom.position);
+                    PoolManager.Release(isOverdriving ? projectileOverdrive : projectile1, muzzleMiddle.position);
+                    PoolManager.Release(isOverdriving ? projectileOverdrive : projectile2, muzzleTop.position);
+                    PoolManager.Release(isOverdriving ? projectileOverdrive : projectile3, muzzleBottom.position);
                     break;
                 default:
                     break;
@@ -245,17 +241,9 @@ public class Player : Character
             AudioManager.Instance.PlayRandomSFX(projectileLaunchSFX);
 
             yield return isOverdriving ? waitForOverdriveFireInterval : waitForFireInterval;
-            //if (isOverdriving)
-            //{
-            //    yield return waitForOverdriveFireInterval;
-            //}
-            //else
-            //{
-            //    yield return waitForFireInterval;
-            //}
-
         }
     }
+
 
     #endregion
 

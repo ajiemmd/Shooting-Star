@@ -56,6 +56,7 @@ public class EnemyController : MonoBehaviour
                 //make enemy rotate with x axis while moving
                 transform.rotation = Quaternion.AngleAxis((targetPosition - transform.position).normalized.y * moveRotationAngle, Vector3.right);
             }
+            else
             {
                 //set a new targetPosition
                 targetPosition = Viewport.Instance.RandomRightHalfPosition(paddingX, paddingY);
