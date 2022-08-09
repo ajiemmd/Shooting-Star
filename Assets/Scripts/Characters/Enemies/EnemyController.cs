@@ -5,10 +5,8 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour
 {
     [Header("---- Move ----")]
-    [SerializeField] float paddingX;
-    [SerializeField] float paddingY;
     [SerializeField] float moveSpeed = 2f;
-    [SerializeField]float moveRotationAngle = 25f;
+    [SerializeField] float moveRotationAngle = 25f;
 
     [Header("---- Fire ----")]
     [SerializeField] GameObject[] projectiles;
@@ -19,13 +17,18 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float minFireInterval;
     [SerializeField] float maxFireInterval;
 
-    float maxMoveDistancePerFrame;
+    float paddingX;
+    float paddingY;
 
     WaitForFixedUpdate waitForFixedUpdate = new WaitForFixedUpdate();
 
+
+
     private void Awake()
     {
-        maxMoveDistancePerFrame = moveSpeed * Time.fixedDeltaTime;
+        var size = transform.GetChild(0).GetComponent<Renderer>().bounds.size;
+        paddingX = size.x / 2f;
+        paddingY = size.y / 2f;
     }
 
     private void OnEnable()
@@ -49,10 +52,10 @@ public class EnemyController : MonoBehaviour
         while (gameObject.activeSelf)
         {
             //if has not arrived targetPosition
-            if (Vector3.Distance(transform.position, targetPosition) >= maxMoveDistancePerFrame)
+            if (Vector3.Distance(transform.position, targetPosition) >= moveSpeed * Time.fixedDeltaTime)
             {
                 //keep moving to targetPosition
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, maxMoveDistancePerFrame);
+                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.fixedDeltaTime);
                 //make enemy rotate with x axis while moving
                 transform.rotation = Quaternion.AngleAxis((targetPosition - transform.position).normalized.y * moveRotationAngle, Vector3.right);
             }
@@ -67,22 +70,22 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-        IEnumerator RandomlyFireCoroutine()
+    IEnumerator RandomlyFireCoroutine()
+    {
+
+        while (gameObject.activeSelf)
         {
+            yield return new WaitForSeconds(Random.Range(minFireInterval, maxFireInterval));
 
-            while (gameObject.activeSelf)
+            foreach (var projectile in projectiles)
             {
-                yield return new WaitForSeconds(Random.Range(minFireInterval, maxFireInterval));
-
-                foreach (var projectile in projectiles)
-                {
-                    PoolManager.Release(projectile, muzzle.position);
-                }
+                PoolManager.Release(projectile, muzzle.position);
+            }
 
             AudioManager.Instance.PlayRandomSFX(projectileLaunchSFX);
-            }
         }
+    }
 
 
-    
+
 }

@@ -17,9 +17,6 @@ public class Player : Character
     [SerializeField] float accelerationTime = 3f;
     [SerializeField] float decelerationTime = 3f;
     [SerializeField] float moveRotationAngle = 50f;
-    [SerializeField] float paddingX = 0.2f;
-    [SerializeField] float paddingY = 0.2f;
-
 
     [Header("----FIRE----")]
     [SerializeField] GameObject projectile1;
@@ -50,11 +47,18 @@ public class Player : Character
     [SerializeField] float overdriveSpeedFactor = 1.2f;
     [SerializeField] float overdriveFireFactor = 1.2f;
 
+    [Header("----SLOWMOTION----")]
+    [SerializeField] float overdriveSlowMotionDuration = 0.3f;//超载模式慢动作持续时间(实际为0.6秒，淡入0.3，淡出0.3)
+    [SerializeField] float dodgeSlowMotionDuration = 0.2f;//闪避慢动作持续时间(实际为0.4秒，淡入0.2，淡出0.2)
+    [SerializeField] float takeDamageSlowMotionDuration = 0.1f;//受伤慢动作持续时间(实际为0.1秒)
 
 
     bool isDodging = false;
 
     bool isOverdriving = false;
+
+    float paddingX;//边距
+    float paddingY;
 
     float currentRoll;
 
@@ -84,6 +88,10 @@ public class Player : Character
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
+
+        var size = transform.GetChild(0).GetComponent<Renderer>().bounds.size;
+        paddingX = size.x / 2f;
+        paddingY = size.y / 2f;
 
         dodgeDuration = maxRoll / rollSpeed;
         rigidbody.gravityScale = 0f;
@@ -139,6 +147,7 @@ public class Player : Character
     {
         base.TakeDamage(damage);
         statsBar_HUD.UpdateStats(health, maxHealth);
+        TimeController.Instance.BulletTime(takeDamageSlowMotionDuration);
 
         if (gameObject.activeSelf)
         {
@@ -269,8 +278,8 @@ public class Player : Character
         //Make player invincible 让玩家无敌
         collider.isTrigger = true;
         //Make player rotate alone X axis 让玩家沿着X轴旋转
-        currentRoll = 0;
-
+        currentRoll = 0f;
+        TimeController.Instance.BulletTime(dodgeSlowMotionDuration, dodgeSlowMotionDuration);
 
         #region 方法一
         //var scale = transform.localScale;
@@ -298,7 +307,7 @@ public class Player : Character
         //}
         #endregion
 
-        #region 线性插值
+        #region 方法二 线性插值
 
         //    var t1 = 0f;
         //    var t2 = 0f;
@@ -323,7 +332,7 @@ public class Player : Character
         //    }
         #endregion
 
-        //方法三：二次  贝塞尔曲线
+        //方法三：二次贝塞尔曲线 平滑缩放
         while (currentRoll < maxRoll)
         {
             currentRoll += rollSpeed * Time.deltaTime;
@@ -356,6 +365,7 @@ public class Player : Character
         isOverdriving = true;
         dodgeEnergyCost *= overdriveDodgeFactor;
         moveSpeed *= overdriveSpeedFactor;
+        TimeController.Instance.BulletTime(overdriveSlowMotionDuration, overdriveSlowMotionDuration);
     }
 
     void OverdriveOff()
