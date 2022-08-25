@@ -172,8 +172,6 @@ MonoBehaviour:
   accelerationTime: 0.35
   decelerationTime: 0.75
   moveRotationAngle: 30
-  paddingX: 1
-  paddingY: 0.35
   projectile1: {fileID: 3001503981540831161, guid: 03eadb105b908a54e952e15c31d8eb06, type: 3}
   projectile2: {fileID: 3001503981540831161, guid: 0e131d8a9be514c48906038ca23fb6f7, type: 3}
   projectile3: {fileID: 3001503981540831161, guid: 6828749cc1c03904ea8a1d80fb00fd26, type: 3}
@@ -1549,7 +1547,7 @@ MonoBehaviour:
   - prefab: {fileID: 3001503981540831161, guid: 6828749cc1c03904ea8a1d80fb00fd26, type: 3}
     size: 25
   - prefab: {fileID: 3001503981540831161, guid: 4439bcfd747c03f4db277ae697384fcf, type: 3}
-    size: 200
+    size: 50
   enemyProjectilePools:
   - prefab: {fileID: 8922262716547355608, guid: 32b758f3d2d6ce84cbbbd8bd1b21e22e, type: 3}
     size: 10
