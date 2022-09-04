@@ -1578,7 +1578,7 @@ MonoBehaviour:
   - prefab: {fileID: 3001503981540831161, guid: 6828749cc1c03904ea8a1d80fb00fd26, type: 3}
     size: 25
   - prefab: {fileID: 3001503981540831161, guid: 4439bcfd747c03f4db277ae697384fcf, type: 3}
-    size: 200
+    size: 50
   enemyProjectilePools:
   - prefab: {fileID: 8922262716547355608, guid: 32b758f3d2d6ce84cbbbd8bd1b21e22e, type: 3}
     size: 10
