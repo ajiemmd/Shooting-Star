@@ -27,9 +27,11 @@ public class StateBar : MonoBehaviour
 
     private void Awake()
     {
-        canvas = GetComponent<Canvas>();
-        canvas.worldCamera = Camera.main;
+        if (TryGetComponent<Canvas>(out Canvas canvas))
+        {
+            canvas.worldCamera = Camera.main;
 
+        }
         waitForDelayFill = new WaitForSeconds(fillDelay);
     }
 
@@ -62,7 +64,7 @@ public class StateBar : MonoBehaviour
             fillImageFront.fillAmount = targetFillAmount;
             //slowly reduce fill image back's fill amount 慢慢减少缓冲血槽的值到目标值
             bufferedFillingCoroutine = StartCoroutine(BufferedFillingCoroutine(fillImageBack));
-            
+
             return;
         }
         //if stats increase  当状态值增加时
@@ -88,7 +90,7 @@ public class StateBar : MonoBehaviour
         while (t < 1f)
         {
             t += Time.deltaTime * fillspeed;
-            currentFillAmount = Mathf.Lerp(previousFillAmount, targetFillAmount,t);
+            currentFillAmount = Mathf.Lerp(previousFillAmount, targetFillAmount, t);
             image.fillAmount = currentFillAmount;
 
             yield return null;
