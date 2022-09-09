@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackGroundScroller : MonoBehaviour
 {
-    [SerializeField]Vector2 scrollVelocity; 
+    [SerializeField] Vector2 scrollVelocity;
 
     Material material;
 
@@ -14,6 +14,9 @@ public class BackGroundScroller : MonoBehaviour
     }
     void Update()
     {
-        material.mainTextureOffset += scrollVelocity * Time.deltaTime;
+        if (GameManager.GameState != GameState.GameOver)
+        {
+            material.mainTextureOffset += scrollVelocity * Time.deltaTime;
+        }
     }
 }
