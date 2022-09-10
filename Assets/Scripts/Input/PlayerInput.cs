@@ -21,6 +21,9 @@ public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions,
 
     public event UnityAction onUnpause = delegate { };
 
+    public event UnityAction onLaunchMissile = delegate { };
+
+
     PlayerInputAction playerInputAction;
 
     void OnEnable()
@@ -72,7 +75,7 @@ public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions,
             onMove.Invoke(context.ReadValue<Vector2>());
         }
 
-        if(context.canceled)
+        if (context.canceled)
         {
             onStopMove.Invoke();
         }
@@ -110,7 +113,7 @@ public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions,
 
     public void OnPause(InputAction.CallbackContext context)
     {
-        
+
         if (context.performed)
         {
             onPause.Invoke();
@@ -122,6 +125,14 @@ public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions,
         if (context.performed)
         {
             onUnpause.Invoke();
+        }
+    }
+
+    public void OnLaunchMissile(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            onLaunchMissile.Invoke();
         }
     }
 }

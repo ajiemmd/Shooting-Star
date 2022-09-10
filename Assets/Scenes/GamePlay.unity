@@ -1615,6 +1615,8 @@ MonoBehaviour:
     size: 25
   - prefab: {fileID: 3001503981540831161, guid: 4439bcfd747c03f4db277ae697384fcf, type: 3}
     size: 50
+  - prefab: {fileID: 2523096243714385163, guid: 1b2c3ab1e0e61914ba3e10d026ca3023, type: 3}
+    size: 3
   enemyProjectilePools:
   - prefab: {fileID: 8922262716547355608, guid: 32b758f3d2d6ce84cbbbd8bd1b21e22e, type: 3}
     size: 10
@@ -95920,6 +95922,7 @@ GameObject:
   - component: {fileID: 6}
   - component: {fileID: 5513889032176665333}
   - component: {fileID: 1059628701}
+  - component: {fileID: 6435389009430653837}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -95927,6 +95930,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &6435389009430653837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435389009430653836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3218c422d6ec17d44850a17db6a8f902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missilePrefab: {fileID: 2523096243714385163, guid: 1b2c3ab1e0e61914ba3e10d026ca3023, type: 3}
+  launchSFX:
+    audioClip: {fileID: 8300000, guid: 53622e00a83edfb49a70bcbb9a4eebec, type: 3}
+    volume: 1
 --- !u!4 &6435389010503847153
 Transform:
   m_ObjectHideFlags: 0

@@ -82,12 +82,14 @@ public class Player : Character
 
     new Collider2D collider;
 
+    MissileSystem missile;
 
     #region UNITY EVENT FUNTIONS
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider = GetComponent<Collider2D>();
+        missile = GetComponent<MissileSystem>();
 
         var size = transform.GetChild(0).GetComponent<Renderer>().bounds.size;
         paddingX = size.x / 2f;
@@ -110,6 +112,7 @@ public class Player : Character
         input.onStopFire += StopFire;
         input.onDodge += Dodge;
         input.onOverdrive += Overdrive;
+        input.onLaunchMissile += LaunchMissile;
 
         PlayerOverdrive.on += OverdriveOn;
         PlayerOverdrive.off += OverdriveOff;
@@ -123,6 +126,8 @@ public class Player : Character
         input.onStopFire -= StopFire;
         input.onDodge -= Dodge;
         input.onOverdrive -= Overdrive;
+        input.onLaunchMissile -= LaunchMissile;
+
 
         PlayerOverdrive.on -= OverdriveOn;
         PlayerOverdrive.off -= OverdriveOff;
@@ -135,12 +140,14 @@ public class Player : Character
 
         input.EnableGamePlayInput();
     }
-    #endregion
 
     private void Update()
     {
         transform.position = Viewport.Instance.PlayerMoveablePostion(transform.position, paddingX, paddingY);//限制玩家移动范围
     }
+
+    #endregion
+
 
     #region HEALTH
     public override void TakeDamage(float damage)
@@ -377,4 +384,9 @@ public class Player : Character
     }
 
     #endregion
+
+    void LaunchMissile()
+    {
+        missile.Launch(muzzleMiddle);
+    }
 }
