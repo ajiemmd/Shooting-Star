@@ -30,7 +30,7 @@ public class Projectile : MonoBehaviour
             PoolManager.Release(hitVFX, collision.GetContact(0).point, Quaternion.LookRotation(collision.GetContact(0).normal));
             AudioManager.Instance.PlayRandomSFX(hitSFX);
             gameObject.SetActive(false);
-        }
+        } 
     }
 
     IEnumerator MoveDirectly()
