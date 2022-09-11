@@ -11,11 +11,11 @@ public class Enemy : Character
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // TODO:目前为玩家和敌人撞到殉爆，可改为玩家掉血(后续添加功能过载时可直接撞碎小怪)
-        //if (collision.gameObject.TryGetComponent<Player>(out Player player))
-        //{
-        //    player.Die();
-        //    Die();
-        //}
+        if (collision.gameObject.TryGetComponent<Player>(out Player player))
+        {
+            player.Die();
+            Die();
+        }
     }
 
     public override void Die()

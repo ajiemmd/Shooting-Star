@@ -29215,11 +29215,10 @@ MonoBehaviour:
   accelerationTime: 0.35
   decelerationTime: 0.75
   moveRotationAngle: 30
-  paddingX: 1
-  paddingY: 0.35
   projectile1: {fileID: 3001503981540831161, guid: 03eadb105b908a54e952e15c31d8eb06, type: 3}
   projectile2: {fileID: 3001503981540831161, guid: 0e131d8a9be514c48906038ca23fb6f7, type: 3}
   projectile3: {fileID: 3001503981540831161, guid: 6828749cc1c03904ea8a1d80fb00fd26, type: 3}
+  projectileOverdrive: {fileID: 0}
   muzzleMiddle: {fileID: 1148571429}
   muzzleTop: {fileID: 383026517}
   muzzleBottom: {fileID: 212853608}
@@ -29235,6 +29234,12 @@ MonoBehaviour:
   maxRoll: 360
   rollSpeed: 360
   dodgeScale: {x: 0.2, y: 0.2, z: 0.2}
+  overdriveDodgeFactor: 2
+  overdriveSpeedFactor: 1.2
+  overdriveFireFactor: 1.2
+  overdriveSlowMotionDuration: 0.3
+  dodgeSlowMotionDuration: 0.2
+  takeDamageSlowMotionDuration: 0.1
 --- !u!114 &5513889031508784046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29248,6 +29253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energyBar: {fileID: 0}
+  overdriveInterval: 0.1
 --- !u!1 &6758096032694626173
 GameObject:
   m_ObjectHideFlags: 0
@@ -43708,6 +43714,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6435389010079767248}
     m_Modifications:
+    - target: {fileID: 7242208377684375535, guid: eac290d400ec9ae45971c2b897959548, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: bdd3e51c8a5c7cd43a1c6340e9bfda13, type: 2}
     - target: {fileID: 7242208378213335922, guid: eac290d400ec9ae45971c2b897959548, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -43804,6 +43814,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7242208378308689927, guid: eac290d400ec9ae45971c2b897959548, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: bdd3e51c8a5c7cd43a1c6340e9bfda13, type: 2}
+    - target: {fileID: 7242208379475302792, guid: eac290d400ec9ae45971c2b897959548, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 2100000, guid: bdd3e51c8a5c7cd43a1c6340e9bfda13, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eac290d400ec9ae45971c2b897959548, type: 3}
 --- !u!224 &7242208377752613349 stripped

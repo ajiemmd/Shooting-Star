@@ -177,6 +177,7 @@ public class Player : Character
 
     public override void Die()
     {
+        GameManager.onGameOver?.Invoke();
         GameManager.GameState = GameState.GameOver;
         statsBar_HUD.UpdateStats(0f, maxHealth);
         base.Die();

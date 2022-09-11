@@ -3,7 +3,12 @@ using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(menuName = "Player Input")]
-public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions, PlayerInputAction.IPauseMenuActions
+public class PlayerInput : 
+    ScriptableObject, 
+    PlayerInputAction.IGamePlayActions, 
+    PlayerInputAction.IPauseMenuActions,
+    PlayerInputAction.IGameOverScreenActions
+
 {
     public event UnityAction<Vector2> onMove = delegate { };
 
@@ -23,6 +28,8 @@ public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions,
 
     public event UnityAction onLaunchMissile = delegate { };
 
+    public event UnityAction onConfirmGameOver = delegate { };
+
 
     PlayerInputAction playerInputAction;
 
@@ -33,6 +40,8 @@ public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions,
         playerInputAction.GamePlay.SetCallbacks(this);
 
         playerInputAction.PauseMenu.SetCallbacks(this);
+
+        playerInputAction.GameOverScreen.SetCallbacks(this);
     }
 
     void OnDisable()
@@ -67,6 +76,8 @@ public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions,
     public void EnableGamePlayInput() => SwitchActionMap(playerInputAction.GamePlay, false);
 
     public void EnablePauseMenuInput() => SwitchActionMap(playerInputAction.PauseMenu, true);
+
+    public void EnableGameOverScreenInput() => SwitchActionMap(playerInputAction.GameOverScreen, true);
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -133,6 +144,14 @@ public class PlayerInput : ScriptableObject, PlayerInputAction.IGamePlayActions,
         if (context.performed)
         {
             onLaunchMissile.Invoke();
+        }
+    }
+
+    public void OnConfirmGameOver(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            onConfirmGameOver.Invoke();
         }
     }
 }

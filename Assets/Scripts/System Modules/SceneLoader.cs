@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class SceneLoader : PersistentSingleton<SceneLoader>
 
     const string GAMEPLAY = "GamePlay";
     const string Main_Menu = "MainMenu";
+    const string SCORING = "Scoring";
 
     void Load(string sceneName)
     {
@@ -36,7 +38,7 @@ public class SceneLoader : PersistentSingleton<SceneLoader>
             yield return null;
         }
 
-        //一直挂起等待到场景加载完(只有当场景被启用时这个进度progress才会被设置为1)
+        //一直挂起等待到场景加载完(progress为0.9时就加载完场景了,只有当场景被启用时这个进度progress才会被设置为1)
         yield return new WaitUntil(() => loadingOperation.progress >= 0.9f);
 
         //Activate the new scene
@@ -64,6 +66,12 @@ public class SceneLoader : PersistentSingleton<SceneLoader>
     {
         StopAllCoroutines();
         StartCoroutine(LoadingCoroutine(Main_Menu));
+    }
+
+    public void LoadScoringScene()
+    {
+        StopAllCoroutines();
+        StartCoroutine(LoadingCoroutine(SCORING));
     }
 
 }
