@@ -130,7 +130,6 @@ public class Player : Character
         input.onOverdrive -= Overdrive;
         input.onLaunchMissile -= LaunchMissile;
 
-
         PlayerOverdrive.on -= OverdriveOn;
         PlayerOverdrive.off -= OverdriveOff;
     }

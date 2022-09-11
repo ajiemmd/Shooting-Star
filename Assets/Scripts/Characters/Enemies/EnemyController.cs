@@ -9,13 +9,13 @@ public class EnemyController : MonoBehaviour
     [SerializeField] float moveRotationAngle = 25f;
 
     [Header("---- Fire ----")]
-    [SerializeField] GameObject[] projectiles;
-    [SerializeField] AudioData[] projectileLaunchSFX;
+    [SerializeField] protected GameObject[] projectiles;
+    [SerializeField] protected AudioData[] projectileLaunchSFX;
 
-    [SerializeField] Transform muzzle;
+    [SerializeField] protected Transform muzzle;
 
-    [SerializeField] float minFireInterval;
-    [SerializeField] float maxFireInterval;
+    [SerializeField] protected float minFireInterval;
+    [SerializeField] protected float maxFireInterval;
 
     float paddingX;
     float paddingY;
@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
 
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         var size = transform.GetChild(0).GetComponent<Renderer>().bounds.size;
         paddingX = size.x / 2f;
@@ -70,7 +70,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    IEnumerator RandomlyFireCoroutine()
+   protected virtual IEnumerator RandomlyFireCoroutine()
     {
 
         while (gameObject.activeSelf)
