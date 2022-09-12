@@ -184,7 +184,7 @@ MonoBehaviour:
   projectileLaunchSFX:
     audioClip: {fileID: 8300000, guid: 53622e00a83edfb49a70bcbb9a4eebec, type: 3}
     volume: 0.5
-  weaponPower: 0
+  weaponPower: 1
   fireInterval: 0.12
   dodgeSFX:
     audioClip: {fileID: 8300000, guid: 9fc03a91b5216b74394a6166059d68f2, type: 3}
