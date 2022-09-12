@@ -19290,6 +19290,7 @@ Transform:
   - {fileID: 6777184692760701545}
   - {fileID: 6777184693396024154}
   - {fileID: 8560713571047787648}
+  - {fileID: 615035581384089122}
   m_Father: {fileID: 5735159873588532430}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19309,11 +19310,11 @@ GameObject:
   - component: {fileID: 844711823}
   m_Layer: 8
   m_Name: Boss The S.H.A.R.K
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5735159873588532430
 Transform:
   m_ObjectHideFlags: 0
@@ -19408,11 +19409,12 @@ MonoBehaviour:
     volume: 1
   - audioClip: {fileID: 8300000, guid: 0f2184b0c1d094741b11e8f4077c52e9, type: 3}
     volume: 1
-  maxHealth: 1200
+  maxHealth: 800
   showOnHeadHealthBar: 1
   onHeadHealthBar: {fileID: 9044559502722558696}
   scorePoint: 1000
   deathEnergyBonus: 100
+  healthFactor: 50
 --- !u!114 &844711823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19443,6 +19445,7 @@ MonoBehaviour:
   - audioClip: {fileID: 8300000, guid: 35644134c067099459f55ecfa2efd85d, type: 3}
     volume: 0.5
   muzzle: {fileID: 5735159872610144748}
+  muzzleVFX: {fileID: 615035581402438498}
   minFireInterval: 0.15
   maxFireInterval: 0.7
   continuousFireDuration: 1.5
@@ -19451,6 +19454,13 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 512
+  beamCooldownTime: 10
+  beamChargingSFX:
+    audioClip: {fileID: 8300000, guid: 3ca00b83f814c7e4d96b72a5b73a229c, type: 3}
+    volume: 1
+  beamLaunchSFX:
+    audioClip: {fileID: 8300000, guid: e8005851546ef034aa6688f76d1daa52, type: 3}
+    volume: 1
 --- !u!1 &6777184692101022918
 GameObject:
   m_ObjectHideFlags: 0
@@ -24266,7 +24276,7 @@ GameObject:
   - component: {fileID: 6777184692747945585}
   - component: {fileID: 6777184692747945587}
   - component: {fileID: 6777184692747945586}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34092,7 +34102,8 @@ GameObject:
   - component: {fileID: 6777184693504505543}
   - component: {fileID: 8965626045995070401}
   - component: {fileID: 6777184693504505536}
-  m_Layer: 8
+  - component: {fileID: 1442468066}
+  m_Layer: 6
   m_Name: Beam
   m_TagString: Enemy Beam
   m_Icon: {fileID: 0}
@@ -34161,6 +34172,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 20, y: 0.25}
   m_EdgeRadius: 0.1
+--- !u!114 &1442468066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6777184693504505542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c1a0b9b0dbf75e4498254bc92449d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 50
+  hitVFX: {fileID: 4801493125213720806, guid: 94d3dff6247d98e4cb4d8d6f0be5e291, type: 3}
 --- !u!1 &8136977872067818088
 GameObject:
   m_ObjectHideFlags: 0
@@ -34477,4 +34502,75 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 6312347931672350837, guid: bcdfcb20bdfc97f44a4f585803958b75, type: 3}
   m_PrefabInstance: {fileID: 2401603174913531125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6850253646393724503
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5735159872610144748}
+    m_Modifications:
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931672775765, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: m_Name
+      value: VFX_BossMuzzleFire
+      objectReference: {fileID: 0}
+    - target: {fileID: 6312347931691750709, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+--- !u!4 &615035581384089122 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6312347931672350837, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+  m_PrefabInstance: {fileID: 6850253646393724503}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &615035581402438498 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6312347931691750709, guid: 2d55ef798e986df4db1aa2d22a470be0, type: 3}
+  m_PrefabInstance: {fileID: 6850253646393724503}
   m_PrefabAsset: {fileID: 0}

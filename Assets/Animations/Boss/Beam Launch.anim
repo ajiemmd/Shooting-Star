@@ -2904,14 +2904,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 3
-    functionName: AE_BeamLaunch
+    functionName: AnimationEventLaunchBeam
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 7
-    functionName: AE_StopBeamFiring
+    functionName: AnimationEventStopBeam
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

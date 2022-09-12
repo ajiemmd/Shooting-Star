@@ -8,6 +8,13 @@ public class Enemy : Character
 
     [SerializeField] int deathEnergyBonus = 3;//敌人死亡奖励的能量
 
+    [SerializeField] protected int healthFactor;
+    protected override void OnEnable()
+    {
+        SetHealth();
+        base.OnEnable();
+    }
+
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
         // TODO:目前为玩家和敌人撞到殉爆，可改为玩家掉血(后续添加功能过载时可直接撞碎小怪)
@@ -24,5 +31,10 @@ public class Enemy : Character
         PlayerEnergy.Instance.Obtain(deathEnergyBonus);
         EnemyManager.Instance.RemoveFromList(gameObject);
         base.Die();
+    }
+
+    protected virtual void SetHealth()
+    {
+        maxHealth += (int)(EnemyManager.Instance.WaveNumber / healthFactor);//敌人每隔几波加1点血
     }
 }

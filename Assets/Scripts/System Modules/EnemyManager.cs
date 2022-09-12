@@ -17,6 +17,10 @@ public class EnemyManager : Singleton<EnemyManager>
     [SerializeField] int minEnemyAmount = 4;
     [SerializeField] int maxEnemyAmount = 10;
 
+    [Header("----BOSS SETTING----")]
+    [SerializeField] GameObject bossPrefab;
+    [SerializeField] int bossWaveNumber;
+
     int waveNumber = 1;
     int enemyAmount;
 
@@ -50,12 +54,20 @@ public class EnemyManager : Singleton<EnemyManager>
 
     IEnumerator RandomlySpawnCoroutine()
     {
-        enemyAmount = Mathf.Clamp(enemyAmount, minEnemyAmount + waveNumber / 3, maxEnemyAmount);
-        for (int i = 0; i < enemyAmount; i++)
+        if (waveNumber % bossWaveNumber == 0)
         {
-            enemyList.Add(PoolManager.Release(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)]));
+            var boss = PoolManager.Release(bossPrefab);
+            enemyList.Add(boss);
+        }
+        else
+        {
+            enemyAmount = Mathf.Clamp(enemyAmount, minEnemyAmount + waveNumber / bossWaveNumber, maxEnemyAmount);
+            for (int i = 0; i < enemyAmount; i++)
+            {
+                enemyList.Add(PoolManager.Release(enemyPrefabs[Random.Range(0, enemyPrefabs.Length)]));
 
-            yield return waitTimeBetweenSpawns;
+                yield return waitTimeBetweenSpawns;
+            }
         }
 
         yield return waitUntilNoEnemy;

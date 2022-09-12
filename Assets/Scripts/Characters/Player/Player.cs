@@ -8,6 +8,7 @@ public class Player : Character
     [SerializeField] bool regenerateHealth = true;
     [SerializeField] float healthRegenerateTime;
     [SerializeField, Range(0f, 1f)] float healthRegeneratePercent;
+    [SerializeField] float InvincibleTime = 1f;
 
     [Header("----INPUT----")]
     [SerializeField] PlayerInput input;
@@ -24,6 +25,7 @@ public class Player : Character
     [SerializeField] GameObject projectile3;
     [SerializeField] GameObject projectileOverdrive;
 
+    [SerializeField] ParticleSystem muzzleVFX;
     [SerializeField] Transform muzzleMiddle;
     [SerializeField] Transform muzzleTop;
     [SerializeField] Transform muzzleBottom;
@@ -71,10 +73,10 @@ public class Player : Character
     Quaternion previousRotation;
 
     WaitForSeconds waitForFireInterval;
-
     WaitForSeconds waitForOverdriveFireInterval;//等待能量爆发时的开火间隔
-
     WaitForSeconds waitHealthRegenerateTime;
+    WaitForSeconds waitDecelerationTime;
+    WaitForSeconds waitInvincibleTime;
 
     Coroutine moveCoroutine;
 
@@ -102,7 +104,9 @@ public class Player : Character
 
         waitForFireInterval = new WaitForSeconds(fireInterval);
         waitForOverdriveFireInterval = new WaitForSeconds(fireInterval /= overdriveFireFactor);//开火间隔缩短
+        waitDecelerationTime = new WaitForSeconds(decelerationTime);
         waitHealthRegenerateTime = new WaitForSeconds(healthRegenerateTime);
+        waitInvincibleTime = new WaitForSeconds(InvincibleTime);
     }
     protected override void OnEnable()
     {
@@ -142,10 +146,6 @@ public class Player : Character
         input.EnableGamePlayInput();
     }
 
-    private void Update()
-    {
-        transform.position = Viewport.Instance.PlayerMoveablePostion(transform.position, paddingX, paddingY);//限制玩家移动范围
-    }
 
     #endregion
 
@@ -160,6 +160,7 @@ public class Player : Character
         if (gameObject.activeSelf)
         {
             Move(moveDirection);
+            StartCoroutine(InvincibleCoroutine());
 
             if (regenerateHealth)
             {
@@ -185,6 +186,14 @@ public class Player : Character
         statsBar_HUD.UpdateStats(0f, maxHealth);
         base.Die();
     }
+
+    IEnumerator InvincibleCoroutine()
+    {
+        collider.isTrigger = true;
+        yield return waitInvincibleTime;
+        collider.isTrigger = false;
+    }
+
     #endregion
 
     #region MOVE
@@ -197,7 +206,7 @@ public class Player : Character
 
         moveDirection = moveInput.normalized;
         moveCoroutine = StartCoroutine(MoveCoroutine(accelerationTime, moveDirection * moveSpeed, Quaternion.AngleAxis(moveRotationAngle * moveInput.y, Vector3.right)));
-
+        //StopCoroutine(nameof(DecelerationCoroutine));
     }
 
     void StopMove()
@@ -206,7 +215,10 @@ public class Player : Character
         {
             StopCoroutine(moveCoroutine);
         }
+
+        moveDirection = Vector2.zero;
         moveCoroutine = StartCoroutine(MoveCoroutine(decelerationTime, Vector2.zero, Quaternion.identity));
+        //StartCoroutine(nameof(DecelerationCoroutine));
     }
 
     IEnumerator MoveCoroutine(float time, Vector2 moveVelocity, Quaternion moveRotation)
@@ -224,16 +236,29 @@ public class Player : Character
             yield return new WaitForFixedUpdate();
         }
     }
+
+    //IEnumerator DecelerationCoroutine()
+    //{
+    //    yield return waitDecelerationTime;
+    //}
+
+    private void Update()
+    {
+        transform.position = Viewport.Instance.PlayerMoveablePostion(transform.position, paddingX, paddingY);//限制玩家移动范围不出屏幕
+    }
+
     #endregion
 
     #region FIRE
     void Fire()
     {
+        muzzleVFX.Play();
         StartCoroutine(nameof(FireCoroutine));
     }
 
     void StopFire()
     {
+        muzzleVFX.Stop();
         StopCoroutine(nameof(FireCoroutine));
     }
 
