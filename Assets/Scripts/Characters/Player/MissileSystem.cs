@@ -26,6 +26,18 @@ public class MissileSystem : MonoBehaviour
         MissileDisplay.UpdateAmountText(amount);
     }
 
+    public void PickUp()
+    {
+        amount++;
+        MissileDisplay.UpdateAmountText(amount);
+
+        if (amount == 1)
+        {
+            MissileDisplay.UpdateCoolDownImage(0f);
+            isReady = true;
+        }
+    }
+
     public void Launch(Transform muzzleTransform)
     {
         if (amount == 0 || !isReady) return; //播放没导弹可发射的提升音效 或 使UI动态变化来提醒玩家没导弹了。

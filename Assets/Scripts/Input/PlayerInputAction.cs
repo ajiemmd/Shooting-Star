@@ -342,6 +342,17 @@ public class @PlayerInputAction : IInputActionCollection, IDisposable
                     ""action"": ""Launch Missile"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8268e339-0dba-4f1a-8f26-b6565ad1057d"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""PC"",
+                    ""action"": ""Launch Missile"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },

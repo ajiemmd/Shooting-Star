@@ -12,6 +12,8 @@ public class PoolManager : MonoBehaviour
 
     [SerializeField] Pool[] vFXPools;
 
+    [SerializeField] Pool[] lootItemPools;
+
     static Dictionary<GameObject, Pool> dictionary;
 
     private void Awake()
@@ -22,6 +24,7 @@ public class PoolManager : MonoBehaviour
         Initialize(playerProjectilePools);
         Initialize(enemyProjectilePools);
         Initialize(vFXPools);
+        Initialize(lootItemPools);
     }
 
 #if UNITY_EDITOR
@@ -32,7 +35,7 @@ public class PoolManager : MonoBehaviour
         CheckPoolSize(playerProjectilePools);
         CheckPoolSize(enemyProjectilePools);
         CheckPoolSize(vFXPools);
-
+        CheckPoolSize(lootItemPools);
     }
 #endif
 

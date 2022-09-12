@@ -8,7 +8,7 @@ public class EnemyBeam : MonoBehaviour
 
     [SerializeField] GameObject hitVFX;
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         
         if (collision.gameObject.TryGetComponent<Player>(out Player player))

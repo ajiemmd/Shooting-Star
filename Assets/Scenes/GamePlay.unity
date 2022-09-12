@@ -184,7 +184,7 @@ MonoBehaviour:
   projectileLaunchSFX:
     audioClip: {fileID: 8300000, guid: 53622e00a83edfb49a70bcbb9a4eebec, type: 3}
     volume: 0.5
-  weaponPower: 2
+  weaponPower: 0
   fireInterval: 0.12
   dodgeSFX:
     audioClip: {fileID: 8300000, guid: 9fc03a91b5216b74394a6166059d68f2, type: 3}
@@ -1961,6 +1961,19 @@ MonoBehaviour:
     size: 2
   - prefab: {fileID: 7203458116342931450, guid: 975f9549f84dd594a84456abeb05e287, type: 3}
     size: 3
+  lootItemPools:
+  - prefab: {fileID: 2019851316260838503, guid: 3281a09cc02e0e3478edeb13d697cd38, type: 3}
+    size: 8
+  - prefab: {fileID: 2019851316260838503, guid: 652b6f2b6b236e44da76ff8c43307fd4, type: 3}
+    size: 5
+  - prefab: {fileID: 5921898909932458412, guid: 853e9cf2d19d10a44947898a95b33246, type: 3}
+    size: 5
+  - prefab: {fileID: 1604554900472224324, guid: f85c5fe7e46557a44a51545100a28c3c, type: 3}
+    size: 5
+  - prefab: {fileID: 7946695540464534128, guid: 286b3ebf9063d1b4fa7d2acb14489695, type: 3}
+    size: 3
+  - prefab: {fileID: 7021913161279593451, guid: 58293df6629a1ca41945239608f9b6ba, type: 3}
+    size: 5
 --- !u!4 &788787262
 Transform:
   m_ObjectHideFlags: 0
@@ -3718,7 +3731,7 @@ MonoBehaviour:
   minEnemyAmount: 4
   maxEnemyAmount: 10
   bossPrefab: {fileID: 5735159873588532432, guid: 0c16c635e0e176a4ea06b212dbb5b996, type: 3}
-  bossWaveNumber: 2
+  bossWaveNumber: 5
 --- !u!4 &1587084443
 Transform:
   m_ObjectHideFlags: 0

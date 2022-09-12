@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : Character
 {
+    #region FIELDS
     [SerializeField] StatsBar_HUD statsBar_HUD;
     [SerializeField] bool regenerateHealth = true;
     [SerializeField] float healthRegenerateTime;
@@ -87,6 +88,14 @@ public class Player : Character
     new Collider2D collider;
 
     MissileSystem missile;
+    #endregion
+
+    #region PROPERTIES
+    public bool IsFullHealth => health == maxHealth;
+    public bool ISFullPower => weaponPower == 2;
+
+    #endregion
+
 
     #region UNITY EVENT FUNTIONS
     void Awake()
@@ -154,6 +163,7 @@ public class Player : Character
     public override void TakeDamage(float damage)
     {
         base.TakeDamage(damage);
+        //PowerDown(); //todo：暂时取消受伤降低武器等级效果，不然游戏难度过高(后续考虑游戏多命，死亡后重置武器等级）
         statsBar_HUD.UpdateStats(health, maxHealth);
         TimeController.Instance.BulletTime(takeDamageSlowMotionDuration);
 
@@ -416,8 +426,42 @@ public class Player : Character
 
     #endregion
 
+    #region MISSILE
+
     void LaunchMissile()
     {
         missile.Launch(muzzleMiddle);
     }
+
+    public void PickUpMissile()
+    {
+        missile.PickUp();
+    }
+
+    #endregion
+
+    #region WEAPON POWER
+    public void PowerUp()
+    {
+        //weaponPower++;
+        //weaponPower = Mathf.Clamp(weaponPower, 0, 2);
+        //weaponPower = Mathf.Min(weaponPower + 1, 2);
+        weaponPower = Mathf.Min(++weaponPower, 2);
+    }
+
+    void PowerDown()
+    {
+        //写法1
+        //weaponPower--;
+        //weaponPower = Mathf.Clamp(weaponPower, 0, 2);
+        //写法2
+        //weaponPower = Mathf.Max(weaponPower - 1, 0);
+        //写法3
+        //weaponPower = Mathf.Clamp(weaponPower, --weaponPower, 0);
+        //写法4
+        weaponPower = Mathf.Max(--weaponPower, 0);
+    }
+
+    #endregion
+
 }
