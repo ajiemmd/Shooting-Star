@@ -81,6 +81,12 @@ public class PlayerInput :
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        //等于下面的移动代码
+        //if (context.phase == InputActionPhase.Performed)
+        //{
+        //    onMove.Invoke(context.ReadValue<Vector2>());
+        //}
+
         if (context.performed)
         {
             onMove.Invoke(context.ReadValue<Vector2>());
@@ -90,6 +96,7 @@ public class PlayerInput :
         {
             onStopMove.Invoke();
         }
+        
 
     }
 

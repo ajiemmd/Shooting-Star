@@ -197,6 +197,10 @@ public class Player : Character
         base.Die();
     }
 
+    /// <summary>
+    /// 无敌状态
+    /// </summary>
+    /// <returns></returns>
     IEnumerator InvincibleCoroutine()
     {
         collider.isTrigger = true;
@@ -443,9 +447,12 @@ public class Player : Character
     #region WEAPON POWER
     public void PowerUp()
     {
+        //写法1
         //weaponPower++;
         //weaponPower = Mathf.Clamp(weaponPower, 0, 2);
+        //写法2
         //weaponPower = Mathf.Min(weaponPower + 1, 2);
+        //写法三
         weaponPower = Mathf.Min(++weaponPower, 2);
     }
 
