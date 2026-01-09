@@ -169,10 +169,10 @@ MonoBehaviour:
   healthRegeneratePercent: 0.02
   InvincibleTime: 1
   input: {fileID: 11400000, guid: da3e5975cc31aa24e8efe536822f739e, type: 2}
-  moveSpeed: 10
-  accelerationTime: 0.35
-  decelerationTime: 0.75
-  moveRotationAngle: 30
+  moveSpeed: 7
+  accelerationTime: 0
+  decelerationTime: 0
+  moveRotationAngle: 20
   projectile1: {fileID: 3001503981540831161, guid: 03eadb105b908a54e952e15c31d8eb06, type: 3}
   projectile2: {fileID: 3001503981540831161, guid: 0e131d8a9be514c48906038ca23fb6f7, type: 3}
   projectile3: {fileID: 3001503981540831161, guid: 6828749cc1c03904ea8a1d80fb00fd26, type: 3}
@@ -189,11 +189,11 @@ MonoBehaviour:
   dodgeSFX:
     audioClip: {fileID: 8300000, guid: 9fc03a91b5216b74394a6166059d68f2, type: 3}
     volume: 1
-  dodgeEnergyCost: 25
+  dodgeEnergyCost: 20
   maxRoll: 360
   rollSpeed: 360
   dodgeScale: {x: 0.2, y: 0.2, z: 0.2}
-  overdriveDodgeFactor: 2
+  overdriveDodgeFactor: 1
   overdriveSpeedFactor: 1.2
   overdriveFireFactor: 1.2
   overdriveSlowMotionDuration: 0.3
